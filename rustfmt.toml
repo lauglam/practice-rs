@@ -1,0 +1,32 @@
+# 指定 rustfmlt 格式化版本
+version = "Two"
+# 开启未稳定特性
+unstable_features = true
+# 配置版次
+edition = "2018"
+# 统一管理宽度设置，但不包含 comment_width
+use_small_heuristics = "Max"
+# 指定一行注释允许的最大宽度
+comment_width = 100
+# wrap_comments 配合 comment_width 使用，自动将一行超过宽带限制的注释切分为多行注释
+wrap_comments = true
+# 如果项目只在 Unix 平台下跑，可以设置该项为 Unix，表示换行符只依赖 Unix
+newline_style = "Unix"
+# 不要自动将多个 Derive 宏合并为同一行
+merge_derives = false
+# 模块导入应该按以下规则进行分组(std置于前面, 第三方置于中间, 本地置于后面)
+group_imports = "StdExternalCrate"
+# 导入同一模块的类型，应该置于同一个块内
+imports_granularity = "Crate"
+# 元组模式匹配的时候允许使用 `..` 来匹配剩余元素
+condense_wildcard_suffixes = true
+# 声明宏 模式匹配分支（=> 左侧）中要使用紧凑格式, 默认声明宏分支代码体（=> 右侧） 使用宽松格式
+format_macro_matchers = true
+# 将 /**/ 注释转为 //
+normalize_comments = true
+# 指定 fmt 忽略的目录
+ignore = [
+    "src/test",
+    "test",
+    "docs",
+]
