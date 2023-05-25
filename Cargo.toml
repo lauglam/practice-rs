@@ -1,6 +1,10 @@
 [workspace]
 
 members = [
+    "async-closures",
+    "bridging-async-and-sync",
     "combinator",
     "composite-pattern",
+    "iterator",
+    "loki",
 ]
