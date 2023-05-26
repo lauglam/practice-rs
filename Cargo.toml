@@ -6,5 +6,4 @@ members = [
     "combinator",
     "composite-pattern",
     "iterator",
-    "loki",
 ]
