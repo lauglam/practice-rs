@@ -158,29 +158,61 @@
 
 // ==============================================Reborrow 再借用=====================================
 
-#[derive(Debug)]
-struct Point {
-    x: i32,
-    y: i32,
-}
+// #[derive(Debug)]
+// struct Point {
+//     x: i32,
+//     y: i32,
+// }
+//
+// impl Point {
+//     fn move_to(&mut self, x: i32, y: i32) {
+//         self.x = x;
+//         self.y = y;
+//     }
+// }
+//
+// fn main() {
+//     let mut p = Point { x: 0, y: 0 };
+//     let r = &mut p;
+//     // rr 是对 r 的再借用
+//     let rr: &Point = &*r;
+//
+//     // 但不能这样
+//     // let rr1: &Point = &p;
+//
+//     println!("{rr:?}");
+//     r.move_to(10, 10);
+//     println!("{r:?}");
+// }
 
-impl Point {
-    fn move_to(&mut self, x: i32, y: i32) {
-        self.x = x;
-        self.y = y;
-    }
-}
+// ==============================================&'static and T:'static=====================================
 
+#![allow(unused)]
+use std::fmt::Debug;
+
+/// T:'static这种语法属于特征约束
+/// 对于类型T的约束T:'static意味着T不包含任何非'static引用；对于接收方来说可以安全地持有T直到自己将其drop
 fn main() {
-    let mut p = Point { x: 0, y: 0 };
-    let r = &mut p;
-    // rr 是对 r 的再借用
-    let rr: &Point = &*r;
+    fn print_it<T: Debug + 'static>(input: T) {
+        println!("符合 T:'static is: {input:?}");
+    }
 
-    // 但不能这样
-    // let rr1: &Point = &p;
+    // 显式标注生命周期
+    fn print_it_1<'a, T: Debug + 'static>(input: &'a T) {
+        println!("符合 T:'static is: {input:?}");
+    }
 
-    println!("{rr:?}");
-    r.move_to(10, 10);
-    println!("{r:?}");
+    let s1 = "你好".to_string();
+    // &String符合'a约束，Ok
+    // String不包含非'static引用，Ok
+    print_it_1(&s1);
+    // s1的所有权转移到print_it，print_it可以安全的持有它直至函数结束，这种非引用的转移默认是满足'static约束的
+    print_it(s1);
+
+    #[derive(Debug)]
+    struct Bad<'a>(&'a String);
+    let s1 = String::from("1");
+    let s2 = Bad(&s1);
+    // print_it_1(&s2); // Bad
+    // print_it(s2);    // Bad
 }
