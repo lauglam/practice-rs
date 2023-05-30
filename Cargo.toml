@@ -10,4 +10,5 @@ members = [
     "lifetime",
     "newtype",
     "self-ref",
+    "too-many-lists",
 ]
