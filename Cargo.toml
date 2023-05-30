@@ -8,5 +8,6 @@ members = [
     "generator",
     "iterator",
     "lifetime",
+    "newtype",
     "self-ref",
 ]
